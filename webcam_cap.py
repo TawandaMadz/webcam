@@ -3,6 +3,7 @@ import cv2, pandas
 from datetime import datetime
 import winsound
 
+beeper_num=0
 first_frame=None
 status_list=[None,None]
 times_list=[]
@@ -30,7 +31,8 @@ while True:
           status=1
           (x,y,w,h)=cv2.boundingRect(contour)
           cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3)
-          winsound.Beep(440, 500)
+
+        
       status_list.append(status)    
       if status_list[-1]==1 and status_list[-2]==0:
           times_list.append(datetime.now())    
@@ -49,6 +51,8 @@ while True:
             times_list.append(datetime.now())
           break
       
+      if status==1:
+         winsound.Beep(440, 500)  
 print(status_list)
 print(times_list)
 for i in range(0, len(times_list),2):
